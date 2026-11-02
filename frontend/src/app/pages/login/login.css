@@ -1,0 +1,119 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #061e40;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #061e40, #164b80);
+  font-family: Arial, sans-serif;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 36px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.atm-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  color:#2678f3;
+}
+
+.atm-icon svg {
+  width: 60px;
+  height: 60px;
+  display: block;
+}
+
+h1 {
+  margin-bottom: 8px;
+  color: #061e40;
+}
+
+.subtitle {
+  margin-bottom: 28px;
+  color: #667085;
+  font-size: 14px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  margin: 14px 0 7px;
+  color: #26364b;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  box-sizing: border-box;
+  border: 1px solid #ccd4df;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: 2px solid #2678f3;
+  border-color: #2678f3;
+}
+
+button {
+  margin-top: 24px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #2678f3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #155fc9;
+}
+
+.register-text {
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+a {
+  color: #2678f3;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.security-note {
+  margin-top: 24px;
+  color: #667085;
+  font-size: 12px;
+}
+
+.form-message {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #b42318;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,544 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #061e40;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Page background */
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px 20px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #061e40, #164b80);
+}
+
+/* Registration card */
+.register-card {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e1e7ef;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+/* Card content */
+.register-content {
+  width: 100%;
+  padding: 30px 32px 32px;
+}
+
+/* Bank icon and heading */
+.form-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e6ebf1;
+}
+
+.bank-icon {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  color: #2678f3;
+}
+
+.form-heading h1 {
+  margin: 0;
+  color: #061e40;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.form-heading p {
+  margin: 4px 0 0;
+  color: #718096;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Form rows */
+.form-row {
+  display: grid;
+  grid-template-columns: 135px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.form-row > label {
+  color: #26364a;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Text fields and dropdowns */
+.form-row input:not([type="radio"]),
+.form-row select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 8px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #172b46;
+  font-family: inherit;
+  font-size: 13px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-row input::placeholder {
+  color: #9aa7b7;
+  opacity: 1;
+}
+
+.form-row input:hover,
+.form-row select:hover {
+  border-color: #94a9c4;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: #2678f3;
+  box-shadow: 0 0 0 3px rgba(38, 120, 243, 0.12);
+}
+
+.form-row select {
+  cursor: pointer;
+}
+
+/* Radio button groups */
+.radio-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.radio-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #26364a;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.radio-options input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: #2678f3;
+  cursor: pointer;
+}
+
+/* Keyboard focus for radio buttons */
+.radio-options input[type="radio"]:focus-visible {
+  outline: 2px solid #2678f3;
+  outline-offset: 3px;
+}
+
+/* Navigation Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #e6ebf1;
+}
+
+.form-actions button {
+  width: 120px;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 1px solid #061e40;
+  border-radius: 6px;
+  background: #061e40;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease,
+              transform 0.2s ease;
+}
+
+/* Button Hover */
+.form-actions button:hover:not(:disabled) {
+  background: #2678f3;
+  border-color: #2678f3;
+  transform: translateY(-1px);
+}
+
+/* Keyboard Focus */
+.form-actions button:focus-visible {
+  outline: 3px solid rgba(38, 120, 243, 0.35);
+  outline-offset: 3px;
+}
+
+/* Disabled Next Button */
+.form-actions button:disabled {
+  background: #d5dce6;
+  border-color: #d5dce6;
+  color: #68778b;
+  cursor: not-allowed;
+  opacity: 1;
+  transform: none;
+}
+
+/* Back Button */
+.form-actions button.back-button {
+  background: #ffffff;
+  color: #061e40;
+  border: 1px solid #cbd5e1;
+}
+
+.form-actions button.back-button:hover:not(:disabled) {
+  background: #eef4fc;
+  border-color: #2678f3;
+  color: #061e40;
+}
+
+/* Mobile Navigation Buttons */
+@media (max-width: 520px) {
+  .form-actions {
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+
+  .form-actions button {
+    flex: 1;
+    width: auto;
+    min-height: 44px;
+  }
+}
+/* ================================
+   PAGE 3: ACCOUNT DETAILS
+================================ */
+
+.account-details-page .form-heading {
+  margin-bottom: 24px;
+}
+
+/* Section headings */
+.account-section {
+  margin-bottom: 24px;
+}
+
+.account-section h3 {
+  margin: 0 0 14px;
+  color: #061e40;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Account type options */
+.account-type-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #dbe4ef;
+  border-radius: 7px;
+  background: #f8faff;
+  color: #26364a;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.choice-option:hover {
+  border-color: #2678f3;
+  background: #eef5ff;
+}
+
+.choice-option input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #2678f3;
+  flex-shrink: 0;
+}
+
+/* Card number and PIN spacing */
+.account-details-page .form-row {
+  margin-bottom: 20px;
+}
+
+.account-details-page .form-row > label {
+  font-size: 13px;
+}
+
+/* Services layout */
+.service-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.service-options .choice-option {
+  min-height: 40px;
+}
+
+/* Declaration */
+.declaration {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #dbe4ef;
+  border-radius: 7px;
+  background: #f7faff;
+}
+
+.declaration label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #344b67;
+  font-size: 12px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.declaration input {
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0;
+  accent-color: #2678f3;
+  flex-shrink: 0;
+}
+
+/* Navigation buttons */
+.account-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid #e6ebf1;
+}
+
+.account-actions button {
+  width: 105px;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #061e40;
+  border-radius: 6px;
+  background: #061e40;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.account-actions button:hover:not(:disabled) {
+  background: #2678f3;
+  border-color: #2678f3;
+  transform: translateY(-1px);
+}
+
+.account-actions button:disabled {
+  background: #d5dce6;
+  border-color: #d5dce6;
+  color: #68778b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Back button */
+.account-actions button.back-button {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #061e40;
+}
+
+.account-actions button.back-button:hover:not(:disabled) {
+  background: #eef4fc;
+  border-color: #2678f3;
+  color: #061e40;
+}
+
+/* Cancel button */
+.account-actions button.cancel-button {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.account-actions button.cancel-button:hover:not(:disabled) {
+  background: #fff1f0;
+  border-color: #d92d20;
+  color: #b42318;
+}
+
+/* Mobile layout */
+@media (max-width: 520px) {
+  .account-type-options,
+  .service-options {
+    grid-template-columns: 1fr;
+  }
+
+  .account-actions {
+    gap: 8px;
+  }
+
+  .account-actions button {
+    flex: 1;
+    width: auto;
+  }
+}
+/* =================================
+   PAGE 4: ACCOUNT CREATED
+================================= */
+
+.confirmation-page {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 12px 8px 24px;
+  text-align: center;
+}
+
+.confirmation-bank-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: #9aa0a6;
+}
+
+.confirmation-bank-icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #20b45b;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.confirmation-page h2 {
+  margin: 0 0 6px;
+  color: #061e40;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.confirmation-subtitle {
+  margin: 0 0 20px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.confirmation-details {
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #e1e7ef;
+  border-radius: 6px;
+  background: #f5f7fa;
+  text-align: left;
+}
+
+.confirmation-detail-row {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.confirmation-detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.confirmation-detail-row span {
+  color: #475569;
+}
+
+.confirmation-detail-row strong {
+  color: #061e40;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.security-reminder {
+  margin: 0 auto 24px;
+  color: #475569;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.confirmation-ok-button {
+  width: 120px;
+  min-height: 40px;
+  border: none;
+  border-radius: 5px;
+  background: #061e40;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.confirmation-ok-button:hover {
+  background: #2678f3;
+}
+
+@media (max-width: 520px) {
+  .confirmation-page {
+    padding: 8px 0 16px;
+  }
+
+  .confirmation-page h2 {
+    font-size: 16px;
+  }
+}

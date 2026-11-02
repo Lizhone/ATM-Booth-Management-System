@@ -1,0 +1,78 @@
+
+<div class="login-page">
+  <div class="login-card">
+    <div class="atm-icon">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    width="60"
+    height="60"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    role="img"
+    aria-label="Bank building"
+  >
+    <path d="M5 22 L32 6 L59 22 Z" />
+    <path d="M8 26 H56" />
+    <path d="M12 49 H52" />
+    <path d="M7 56 H57" />
+    <path d="M16 27 V48" />
+    <path d="M27 27 V48" />
+    <path d="M37 27 V48" />
+    <path d="M48 27 V48" />
+  </svg>
+</div>
+
+    <h1>ATM BOOTH</h1>
+    <p class="subtitle">Secure Banking at Your Fingertips</p>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <label for="accountNumber">Account Number</label>
+      <input
+        id="accountNumber"
+        name="accountNumber"
+        type="text"
+        [(ngModel)]="accountNumber"
+        placeholder="Enter your account number"
+        maxlength="20"
+        required
+      />
+
+      <label for="pin">ATM PIN</label>
+      <input
+        id="pin"
+        name="pin"
+        type="password"
+        [(ngModel)]="pin"
+        placeholder="Enter your 4-digit PIN"
+        maxlength="4"
+        inputmode="numeric"
+        pattern="[0-9]{4}"
+        required
+      />
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'PLEASE WAIT...' : 'LOGIN' }}
+      </button>
+
+      <p *ngIf="message" class="form-message" role="status">
+        {{ message }}
+      </p>
+    </form>
+
+    <p class="register-text">
+      Don't have an account?
+      <a routerLink="/register">Create Account</a>
+    </p>
+
+    <p class="security-note">
+      Your banking information is protected
+    </p>
+  </div>
+</div>

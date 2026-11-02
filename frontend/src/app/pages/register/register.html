@@ -1,0 +1,788 @@
+
+<div class="register-page">
+  <div class="register-card">
+
+    <div class="register-content">
+
+      <!-- Bank icon and form heading -->
+   <div class="form-heading" *ngIf="currentPage === 1">
+        <svg
+          class="bank-icon"
+          viewBox="0 0 64 64"
+          fill="none"
+          role="img"
+          aria-label="Bank building"
+        >
+          <path
+            d="M5 21 L32 5 L59 21 Z"
+            stroke="currentColor"
+            stroke-width="4"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 27 H54 M10 49 H54 M6 57 H58"
+            stroke="currentColor"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+          <path
+            d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+        </svg>
+
+        <div>
+          <h1>Application Form No. {{ applicationNumber }}</h1>
+          <p>Personal Information</p>
+        </div>
+      </div>
+
+      <form
+  *ngIf="currentPage === 1"
+  (ngSubmit)="nextPage()"
+  #registerForm="ngForm"
+>
+
+        <!-- Full name -->
+        <div class="form-row">
+          <label for="fullName">Name:</label>
+          <input
+            id="fullName"
+            name="fullName"
+            type="text"
+            [(ngModel)]="fullName"
+            maxlength="100"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <!-- Father's name -->
+        <div class="form-row">
+          <label for="fatherName">Father's Name:</label>
+          <input
+            id="fatherName"
+            name="fatherName"
+            type="text"
+            [(ngModel)]="fatherName"
+            placeholder="Enter father's name"
+            required
+          />
+        </div>
+
+        <!-- Date of birth -->
+        <div class="form-row">
+          <label for="dob">Date of Birth:</label>
+          <input
+            id="dob"
+            name="dob"
+            type="date"
+            [(ngModel)]="dob"
+            required
+          />
+        </div>
+
+        <!-- Gender -->
+        <div class="form-row">
+          <label>Gender:</label>
+
+          <div class="radio-options">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Male"
+                [(ngModel)]="gender"
+                required
+              />
+              <span>Male</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Female"
+                [(ngModel)]="gender"
+                required
+              />
+              <span>Female</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Other"
+                [(ngModel)]="gender"
+                required
+              />
+              <span>Other</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+          <label for="email">Email Address:</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            maxlength="120"
+            placeholder="Enter your email address"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <!-- Phone -->
+        <div class="form-row">
+          <label for="phone">Phone Number:</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            [(ngModel)]="phone"
+            maxlength="20"
+            placeholder="Enter your phone number"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <!-- Marital status -->
+        <div class="form-row">
+          <label>Marital Status:</label>
+
+          <div class="radio-options">
+            <label>
+              <input
+                type="radio"
+                name="maritalStatus"
+                value="Married"
+                [(ngModel)]="maritalStatus"
+                required
+              />
+              <span>Married</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="maritalStatus"
+                value="Unmarried"
+                [(ngModel)]="maritalStatus"
+                required
+              />
+              <span>Unmarried</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="maritalStatus"
+                value="Other"
+                [(ngModel)]="maritalStatus"
+                required
+              />
+              <span>Other</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+          <label for="address">Address:</label>
+          <input
+            id="address"
+            name="address"
+            type="text"
+            [(ngModel)]="address"
+            placeholder="Enter your address"
+            autocomplete="street-address"
+            required
+          />
+        </div>
+
+        <!-- City -->
+        <div class="form-row">
+          <label for="city">City:</label>
+          <input
+            id="city"
+            name="city"
+            type="text"
+            [(ngModel)]="city"
+            placeholder="Enter your city"
+            autocomplete="address-level2"
+            required
+          />
+        </div>
+
+        <!-- Pin code -->
+        <div class="form-row">
+          <label for="pinCode">Pin Code:</label>
+          <input
+            id="pinCode"
+            name="pinCode"
+            type="text"
+            [(ngModel)]="pinCode"
+            maxlength="6"
+            inputmode="numeric"
+            placeholder="Enter pin code"
+            autocomplete="postal-code"
+            required
+          />
+        </div>
+
+        <!-- State -->
+        <div class="form-row">
+          <label for="state">State:</label>
+
+          <select
+            id="state"
+            name="state"
+            [(ngModel)]="state"
+            required
+          >
+            <option value="" disabled>Select State</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+        </div>
+
+        <!-- Next button -->
+        <div class="form-actions">
+          <button
+            type="submit"
+            [disabled]="registerForm.invalid || isLoading"
+          >
+            {{ isLoading ? 'Please wait...' : 'Next' }}
+          </button>
+        </div>
+
+        <!-- Status message -->
+        <p
+          *ngIf="message"
+          class="message"
+          role="status"
+        >
+          {{ message }}
+        </p>
+
+        <!-- Existing account result -->
+        <div *ngIf="accountNumber" class="account-result">
+          <strong>Your account number:</strong>
+          <p>{{ accountNumber }}</p>
+          <p>Please save this number for login.</p>
+        </div>
+
+      </form>
+      <!-- PAGE 2: ADDITIONAL DETAILS -->
+<div *ngIf="currentPage === 2" class="additional-details-page">
+
+  <div class="form-heading">
+    <svg class="bank-icon" viewBox="0 0 64 64" fill="none" aria-label="Bank building">
+      <path d="M5 21 L32 5 L59 21 Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M10 27 H54 M10 49 H54 M6 57 H58" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      <path d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48" stroke="currentColor" stroke-width="4"/>
+    </svg>
+
+    <div>
+      <h1>Application Form No. {{ applicationNumber }}</h1>
+      <p>Additional Details</p>
+    </div>
+  </div>
+
+  <form #additionalForm="ngForm" (ngSubmit)="goToAccountDetails()">
+
+    <div class="form-row">
+      <label for="religion">Religion:</label>
+      <select id="religion" name="religion" [(ngModel)]="religion" required>
+        <option value="" disabled>Select Religion</option>
+        <option value="Christian">Christian</option>
+        <option value="Hindu">Hindu</option>
+        <option value="Muslim">Muslim</option>
+        <option value="Sikh">Sikh</option>
+        <option value="Buddhist">Buddhist</option>
+        <option value="Jain">Jain</option>
+        <option value="Other">Other</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="category">Category:</label>
+      <select id="category" name="category" [(ngModel)]="category" required>
+        <option value="" disabled>Select Category</option>
+        <option value="General">General</option>
+        <option value="OBC">OBC</option>
+        <option value="SC">SC</option>
+        <option value="ST">ST</option>
+        <option value="Other">Other</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="income">Annual Income:</label>
+      <select id="income" name="income" [(ngModel)]="income" required>
+        <option value="" disabled>Select Annual Income</option>
+        <option value="Below ₹1,00,000">Below ₹1,00,000</option>
+        <option value="₹1,00,000 - ₹3,00,000">₹1,00,000 - ₹3,00,000</option>
+        <option value="₹3,00,001 - ₹5,00,000">₹3,00,001 - ₹5,00,000</option>
+        <option value="₹5,00,001 - ₹10,00,000">₹5,00,001 - ₹10,00,000</option>
+        <option value="Above ₹10,00,000">Above ₹10,00,000</option>
+        <option value="Not disclosed">Not disclosed</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="education">Educational Qualification:</label>
+      <select id="education" name="education" [(ngModel)]="education" required>
+        <option value="" disabled>Select Qualification</option>
+        <option value="Below 10th">Below 10th</option>
+        <option value="10th Pass">10th Pass</option>
+        <option value="12th Pass">12th Pass</option>
+        <option value="Graduate">Graduate</option>
+        <option value="Postgraduate">Postgraduate</option>
+        <option value="Professional">Professional</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="occupation">Occupation:</label>
+      <select id="occupation" name="occupation" [(ngModel)]="occupation" required>
+        <option value="" disabled>Select Occupation</option>
+        <option value="Salaried">Salaried</option>
+        <option value="Self-employed">Self-employed</option>
+        <option value="Business">Business</option>
+        <option value="Student">Student</option>
+        <option value="Homemaker">Homemaker</option>
+        <option value="Retired">Retired</option>
+        <option value="Unemployed">Unemployed</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="panNumber">PAN Number:</label>
+      <input id="panNumber" name="panNumber" type="text"
+        [(ngModel)]="panNumber" maxlength="10"
+        pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]"
+        placeholder="Enter PAN number" required/>
+    </div>
+
+    <div class="form-row">
+      <label for="aadhaarNumber">Aadhaar Number:</label>
+      <input id="aadhaarNumber" name="aadhaarNumber" type="text"
+        [(ngModel)]="aadhaarNumber" minlength="12" maxlength="12"
+        pattern="[0-9]{12}" inputmode="numeric"
+        placeholder="Enter 12-digit Aadhaar number" required/>
+    </div>
+
+    <div class="form-row">
+      <label>Senior Citizen:</label>
+      <div class="radio-options">
+        <label>
+          <input type="radio" name="seniorCitizen" value="Yes"
+            [(ngModel)]="seniorCitizen" required/>
+          <span>Yes</span>
+        </label>
+        <label>
+          <input type="radio" name="seniorCitizen" value="No"
+            [(ngModel)]="seniorCitizen" required/>
+          <span>No</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Existing Account:</label>
+      <div class="radio-options">
+        <label>
+          <input type="radio" name="existingAccount" value="Yes"
+            [(ngModel)]="existingAccount" required/>
+          <span>Yes</span>
+        </label>
+        <label>
+          <input type="radio" name="existingAccount" value="No"
+            [(ngModel)]="existingAccount" required/>
+          <span>No</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions additional-actions">
+      <button type="button" class="back-button" (click)="previousPage()">
+        Back
+      </button>
+
+      <button
+  type="button"
+  (click)="goToAccountDetails()"
+  [disabled]="isLoading"
+>
+  Next
+</button>
+    </div>
+
+    <p *ngIf="message" class="message" role="status">
+      {{ message }}
+    </p>
+
+  </form>
+</div>
+<!-- PAGE 3: ACCOUNT DETAILS -->
+<div
+  *ngIf="currentPage === 3 && !applicationSubmitted"
+  class="account-details-page"
+>
+
+  <!-- Heading -->
+  <div class="form-heading">
+    <svg
+      class="bank-icon"
+      viewBox="0 0 64 64"
+      fill="none"
+      role="img"
+      aria-label="Bank building"
+    >
+      <path
+        d="M5 21 L32 5 L59 21 Z"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10 27 H54 M10 49 H54 M6 57 H58"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linecap="round"
+      />
+      <path
+        d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+        stroke="currentColor"
+        stroke-width="4"
+      />
+    </svg>
+
+    <div>
+      <h1>Application Form No. {{ applicationNumber }}</h1>
+      <p>Account Details</p>
+    </div>
+  </div>
+
+  <form #accountForm="ngForm" (ngSubmit)="submitApplication()">
+
+    <!-- Account Type -->
+    <div class="account-section">
+      <h3>Account Type:</h3>
+
+      <div class="account-type-options">
+        <label class="choice-option">
+          <input
+            type="radio"
+            name="accountType"
+            value="Saving Account"
+            [(ngModel)]="accountType"
+            required
+          />
+          <span>Saving Account</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="radio"
+            name="accountType"
+            value="Fixed Deposit Account"
+            [(ngModel)]="accountType"
+            required
+          />
+          <span>Fixed Deposit Account</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="radio"
+            name="accountType"
+            value="Current Account"
+            [(ngModel)]="accountType"
+            required
+          />
+          <span>Current Account</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="radio"
+            name="accountType"
+            value="Recurring Deposit Account"
+            [(ngModel)]="accountType"
+            required
+          />
+          <span>Recurring Deposit Account</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Card Number: Generated by the backend -->
+<div class="form-row">
+  <label>Account Number:</label>
+  <input
+    type="text"
+    [value]="accountNumber || 'Generated after registration'"
+    readonly
+  />
+</div>
+
+  
+<!-- Create PIN -->
+<div class="form-row">
+  <label for="pin">Create Your PIN:</label>
+  <input
+    id="pin"
+    name="pin"
+    type="password"
+    [(ngModel)]="pin"
+    maxlength="4"
+    minlength="4"
+    pattern="[0-9]{4}"
+    inputmode="numeric"
+    placeholder="Enter a 4-digit PIN"
+    autocomplete="new-password"
+    required
+  />
+</div>
+
+<!-- Confirm PIN -->
+<div class="form-row">
+  <label for="accountPin">Confirm Your PIN:</label>
+  <input
+    id="accountPin"
+    name="accountPin"
+    type="password"
+    [(ngModel)]="accountPin"
+    maxlength="4"
+    minlength="4"
+    pattern="[0-9]{4}"
+    inputmode="numeric"
+    placeholder="Re-enter the same 4-digit PIN"
+    autocomplete="new-password"
+    required
+  />
+</div>
+
+
+    <!-- Services Required -->
+    <div class="account-section">
+      <h3>Services Required:</h3>
+
+      <div class="service-options">
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('ATM Card')"
+            (change)="onServiceChange('ATM Card', $any($event.target).checked)"
+          />
+          <span>ATM Card</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('Internet Banking')"
+            (change)="onServiceChange('Internet Banking', $any($event.target).checked)"
+          />
+          <span>Internet Banking</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('Mobile Banking')"
+            (change)="onServiceChange('Mobile Banking', $any($event.target).checked)"
+          />
+          <span>Mobile Banking</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('Email Alerts')"
+            (change)="onServiceChange('Email Alerts', $any($event.target).checked)"
+          />
+          <span>Email Alerts</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('Cheque Book')"
+            (change)="onServiceChange('Cheque Book', $any($event.target).checked)"
+          />
+          <span>Cheque Book</span>
+        </label>
+
+        <label class="choice-option">
+          <input
+            type="checkbox"
+            [checked]="servicesRequired.includes('E-Statement')"
+            (change)="onServiceChange('E-Statement', $any($event.target).checked)"
+          />
+          <span>E-Statement</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Declaration -->
+    <div class="declaration">
+      <label>
+        <input
+          type="checkbox"
+          name="declarationAccepted"
+          [(ngModel)]="declarationAccepted"
+          required
+        />
+        <span>
+          I declare that the information provided in this application
+          is correct to the best of my knowledge.
+        </span>
+      </label>
+    </div>
+
+    <!-- Message -->
+    <p *ngIf="message" class="message" role="status">
+      {{ message }}
+    </p>
+
+    <!-- Buttons -->
+    <div class="form-actions account-actions">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goToAdditionalDetails()"
+      >
+        Back
+      </button>
+
+      <button
+        type="submit"
+        [disabled]="accountForm.invalid || isLoading"
+      >
+        Submit
+      </button>
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="cancelApplication()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </form>
+</div>
+<!-- PAGE 4: ACCOUNT CREATED SUCCESSFULLY -->
+<div *ngIf="applicationSubmitted" class="confirmation-page">
+
+  <!-- Bank Icon -->
+  <div class="confirmation-bank-icon">
+    <svg
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-label="Bank building"
+    >
+      <path
+        d="M5 21 L32 5 L59 21 Z"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10 27 H54 M10 49 H54 M6 57 H58"
+        stroke="currentColor"
+        stroke-width="4"
+        stroke-linecap="round"
+      />
+      <path
+        d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+        stroke="currentColor"
+        stroke-width="4"
+      />
+    </svg>
+  </div>
+
+  <!-- Success Icon -->
+  <div class="success-icon">
+    ✓
+  </div>
+
+  <!-- Success Message -->
+  <h2>Account Created Successfully!</h2>
+  <p class="confirmation-subtitle">
+    Your account has been created.
+  </p>
+
+  <!-- Card Details -->
+  <div class="confirmation-details">
+    <div class="confirmation-detail-row">
+      <span>Card Number:</span>
+      <strong>{{ generatedCardNumber }}</strong>
+    </div>
+
+    <div class="confirmation-detail-row">
+      <span>PIN:</span>
+      <strong>{{ generatedCardPin }}</strong>
+    </div>
+  </div>
+
+  <!-- Security Reminder -->
+  <p class="security-reminder">
+    Please keep your card number and PIN safe and confidential.
+  </p>
+
+  <!-- OK Button -->
+  <button
+    type="button"
+    class="confirmation-ok-button"
+    (click)="finishApplication()"
+  >
+    OK
+  </button>
+
+</div>
+

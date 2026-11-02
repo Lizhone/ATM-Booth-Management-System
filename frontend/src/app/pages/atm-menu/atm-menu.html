@@ -1,0 +1,553 @@
+
+<div class="atm-page">
+  <div class="atm-machine">
+
+    <!-- ATM HEADER -->
+    <header class="atm-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M5 21 L32 5 L59 21 Z"
+              stroke="currentColor" stroke-width="4"
+              stroke-linejoin="round"/>
+            <path d="M10 27 H54 M10 49 H54 M6 57 H58"
+              stroke="currentColor" stroke-width="4"
+              stroke-linecap="round"/>
+            <path d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+              stroke="currentColor" stroke-width="4"/>
+          </svg>
+        </div>
+        <div>
+          <h1>ATM BOOTH</h1>
+          <p>Secure Banking</p>
+        </div>
+      </div>
+
+      <div class="customer-info">
+        <span class="customer-label">CUSTOMER</span>
+        <strong>{{ customer?.full_name || 'Customer' }}</strong>
+      </div>
+    </header>
+
+    <!-- ATM DISPLAY -->
+    <main class="atm-display">
+
+      <div class="screen-top">
+        <span class="status-dot"></span>
+        <span>ATM SERVICE MENU</span>
+        <span class="screen-status">
+          {{ isLoading ? 'PROCESSING' : 'READY' }}
+        </span>
+      </div>
+
+      <!-- TRANSACTION SUCCESS SCREEN -->
+      <section class="success-screen" *ngIf="transactionSuccess">
+
+        <div class="success-bank-icon">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M5 21 L32 5 L59 21 Z"
+              stroke="currentColor" stroke-width="3.5"
+              stroke-linejoin="round"/>
+            <path d="M10 27 H54 M10 49 H54 M6 57 H58"
+              stroke="currentColor" stroke-width="3.5"
+              stroke-linecap="round"/>
+            <path d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+              stroke="currentColor" stroke-width="3.5"/>
+          </svg>
+        </div>
+
+        <div class="success-check" aria-label="Success">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 12.5 L10 17 L19 7"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h2>Transaction Successful!</h2>
+
+        <p class="success-description">
+          ₹{{ successAmount | number:'1.2-2' }}
+          has been
+          {{ successType === 'Deposit' ? 'deposited' : 'withdrawn' }}
+          successfully.
+        </p>
+
+        <div class="success-details">
+          <div class="success-detail-row">
+            <span>Transaction Type</span>
+            <strong>{{ successType }}</strong>
+          </div>
+
+          <div class="success-detail-row">
+            <span>Transaction Amount</span>
+            <strong>₹{{ successAmount | number:'1.2-2' }}</strong>
+          </div>
+
+          <div class="success-detail-row">
+            <span>Account Number</span>
+            <strong>{{ customer?.account_number }}</strong>
+          </div>
+
+          <div class="success-detail-row balance-detail">
+            <span>Current Balance</span>
+            <strong *ngIf="successBalance !== null">
+              ₹{{ successBalance | number:'1.2-2' }}
+            </strong>
+            <strong *ngIf="successBalance === null">
+              Unavailable
+            </strong>
+          </div>
+        </div>
+
+        <p class="success-note">
+          Thank you for banking with ATM BOOTH.
+        </p>
+
+        <button
+          type="button"
+          class="success-ok-button"
+          (click)="confirmSuccess()">
+          OK
+        </button>
+      </section>
+
+      <!-- MAIN MENU -->
+      <section
+        class="screen-content"
+        *ngIf="!selectedOption && !transactionSuccess">
+
+        <div class="welcome-icon">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M5 21 L32 5 L59 21 Z"
+              stroke="currentColor" stroke-width="4"
+              stroke-linejoin="round"/>
+            <path d="M10 27 H54 M10 49 H54 M6 57 H58"
+              stroke="currentColor" stroke-width="4"
+              stroke-linecap="round"/>
+            <path d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+              stroke="currentColor" stroke-width="4"/>
+          </svg>
+        </div>
+
+        <h2>Please Select Your Transaction</h2>
+        <p class="screen-description">
+          Choose an option below to continue.
+        </p>
+
+        <div class="transaction-grid">
+          <button type="button" class="transaction-button"
+            (click)="selectOption('Deposit')">
+            <span class="transaction-icon deposit-icon">↓</span>
+            <span class="transaction-label">Deposit</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+
+          <button type="button" class="transaction-button"
+            (click)="selectOption('Cash Withdrawal')">
+            <span class="transaction-icon withdrawal-icon">↑</span>
+            <span class="transaction-label">Cash Withdrawal</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+
+          <button type="button" class="transaction-button"
+            (click)="selectOption('Fast Cash')">
+            <span class="transaction-icon fast-icon">ϟ</span>
+            <span class="transaction-label">Fast Cash</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+
+          <button type="button" class="transaction-button"
+            (click)="selectOption('Mini Statement')">
+            <span class="transaction-icon statement-icon">▤</span>
+            <span class="transaction-label">Mini Statement</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+
+          <button type="button" class="transaction-button"
+            (click)="selectOption('PIN Change')">
+            <span class="transaction-icon pin-icon">●</span>
+            <span class="transaction-label">PIN Change</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+
+          <button type="button" class="transaction-button"
+            (click)="selectOption('Balance Enquiry')">
+            <span class="transaction-icon balance-icon">₹</span>
+            <span class="transaction-label">Balance Enquiry</span>
+            <span class="transaction-arrow">›</span>
+          </button>
+        </div>
+
+        <button type="button" class="exit-button" (click)="exit()">
+          <span class="exit-symbol">↪</span>
+          Exit ATM
+        </button>
+      </section>
+
+      <!-- TRANSACTION FORMS -->
+<section
+  class="transaction-panel"
+  *ngIf="
+    selectedOption &&
+    !transactionSuccess &&
+    selectedOption !== 'Mini Statement Receipt' &&
+    selectedOption !== 'Balance Enquiry'
+  ">
+
+        <div class="panel-icon">
+          <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <path d="M5 21 L32 5 L59 21 Z"
+              stroke="currentColor" stroke-width="4"
+              stroke-linejoin="round"/>
+            <path d="M10 27 H54 M10 49 H54 M6 57 H58"
+              stroke="currentColor" stroke-width="4"
+              stroke-linecap="round"/>
+            <path d="M17 28 V48 M27 28 V48 M37 28 V48 M47 28 V48"
+              stroke="currentColor" stroke-width="4"/>
+          </svg>
+        </div>
+
+        <h2>{{ selectedOption }}</h2>
+
+        <p class="screen-description">
+          Account: {{ customer?.account_number }}
+        </p>
+
+        <div *ngIf="message"
+          class="transaction-message"
+          role="status">
+          {{ message }}
+        </div>
+
+        <!-- DEPOSIT -->
+        <form *ngIf="selectedOption === 'Deposit'"
+          (ngSubmit)="submitTransaction()"
+          class="transaction-form">
+
+          <label for="depositAmount">Deposit Amount (₹)</label>
+          <input id="depositAmount"
+            type="number"
+            name="depositAmount"
+            [(ngModel)]="amount"
+            min="0.01"
+            step="0.01"
+            placeholder="Enter deposit amount"
+            required/>
+
+          <label for="depositPin">Enter PIN</label>
+          <input id="depositPin"
+            type="password"
+            name="depositPin"
+            [(ngModel)]="pin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Enter your 4-digit PIN"
+            required/>
+
+          <button type="submit" class="action-button"
+            [disabled]="isLoading">
+            {{ isLoading ? 'Processing...' : 'Deposit Money' }}
+          </button>
+        </form>
+
+        <!-- CASH WITHDRAWAL -->
+        <form *ngIf="selectedOption === 'Cash Withdrawal'"
+          (ngSubmit)="submitTransaction()"
+          class="transaction-form">
+
+          <label for="withdrawAmount">Withdrawal Amount (₹)</label>
+          <input id="withdrawAmount"
+            type="number"
+            name="withdrawAmount"
+            [(ngModel)]="amount"
+            min="0.01"
+            step="0.01"
+            placeholder="Enter withdrawal amount"
+            required/>
+
+          <label for="withdrawPin">Enter PIN</label>
+          <input id="withdrawPin"
+            type="password"
+            name="withdrawPin"
+            [(ngModel)]="pin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Enter your 4-digit PIN"
+            required/>
+
+          <button type="submit" class="action-button"
+            [disabled]="isLoading">
+            {{ isLoading ? 'Processing...' : 'Withdraw Cash' }}
+          </button>
+        </form>
+
+        <!-- FAST CASH -->
+        <form *ngIf="selectedOption === 'Fast Cash'"
+          (ngSubmit)="submitTransaction()"
+          class="transaction-form">
+
+          <label>Select Withdrawal Amount</label>
+
+          <div class="fast-cash-grid">
+            <button *ngFor="let cashAmount of fastCashAmounts"
+              type="button"
+              [class.selected-amount]="amount === cashAmount"
+              (click)="amount = cashAmount">
+              ₹{{ cashAmount | number }}
+            </button>
+          </div>
+
+          <label for="fastCashPin">Enter PIN</label>
+          <input id="fastCashPin"
+            type="password"
+            name="fastCashPin"
+            [(ngModel)]="pin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Enter your 4-digit PIN"
+            required/>
+
+          <button type="submit" class="action-button"
+            [disabled]="isLoading || !amount">
+            {{ isLoading ? 'Processing...' : 'Withdraw Fast Cash' }}
+          </button>
+        </form>
+
+        
+<!-- MINI STATEMENT PIN ENTRY -->
+<form
+  *ngIf="selectedOption === 'Mini Statement'"
+  (ngSubmit)="submitTransaction()"
+  class="transaction-form">
+
+  <label for="statementPin">Enter PIN to View Statement</label>
+
+  <input
+    id="statementPin"
+    type="password"
+    name="statementPin"
+    [(ngModel)]="pin"
+    inputmode="numeric"
+    maxlength="4"
+    pattern="[0-9]{4}"
+    placeholder="Enter your 4-digit PIN"
+    required />
+
+  <button
+    type="submit"
+    class="action-button"
+    [disabled]="isLoading">
+    {{ isLoading ? 'Loading...' : 'View Mini Statement' }}
+  </button>
+</form>
+
+        <!-- PIN CHANGE -->
+        <form *ngIf="selectedOption === 'PIN Change'"
+          (ngSubmit)="submitTransaction()"
+          class="transaction-form">
+
+          <label for="oldPin">Current PIN</label>
+          <input id="oldPin"
+            type="password"
+            name="oldPin"
+            [(ngModel)]="oldPin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Enter current PIN"
+            required/>
+
+          <label for="newPin">New PIN</label>
+          <input id="newPin"
+            type="password"
+            name="newPin"
+            [(ngModel)]="newPin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Enter new 4-digit PIN"
+            required/>
+
+          <label for="confirmPin">Confirm New PIN</label>
+          <input id="confirmPin"
+            type="password"
+            name="confirmPin"
+            [(ngModel)]="confirmPin"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9]{4}"
+            placeholder="Re-enter new PIN"
+            required/>
+
+          <button type="submit" class="action-button"
+            [disabled]="isLoading">
+            {{ isLoading ? 'Updating...' : 'Change PIN' }}
+          </button>
+        </form>
+        </section>
+
+        
+<!-- BALANCE ENQUIRY: PIN SCREEN -->
+<form
+  *ngIf="selectedOption === 'Balance Enquiry' && !balanceVerified"
+  (ngSubmit)="submitTransaction()"
+  class="transaction-form">
+
+  <label for="balancePin">Enter PIN to Check Balance</label>
+
+  <input
+    id="balancePin"
+    type="password"
+    name="balancePin"
+    [(ngModel)]="pin"
+    inputmode="numeric"
+    maxlength="4"
+    pattern="[0-9]{4}"
+    placeholder="Enter your 4-digit PIN"
+    required />
+
+  <button
+    type="submit"
+    class="action-button"
+    [disabled]="isLoading">
+    {{ isLoading ? 'Checking...' : 'Check Balance' }}
+  </button>
+
+</form>
+
+<!-- BALANCE ENQUIRY: RESULT SCREEN -->
+<section
+  *ngIf="selectedOption === 'Balance Enquiry' && balanceVerified && balance !== null"
+  class="balance-only-screen">
+
+  <div class="balance-result">
+    <p>Available Account Balance</p>
+    <h3>₹{{ balance | number:'1.2-2' }}</h3>
+  </div>
+
+ <button
+  *ngIf="selectedOption === 'Balance Enquiry'"
+  type="button"
+  class="back-button"
+  (click)="backToMenu()">
+  ← Back to Main Menu
+</button>
+</section>
+
+<!-- SEPARATE MINI STATEMENT RECEIPT PAGE -->
+<section
+  *ngIf="selectedOption === 'Mini Statement Receipt' && statementLoaded"
+  class="receipt-page">
+
+  <div class="receipt-header">
+    <h2>ATM BOOTH</h2>
+    <p>Mini Statement Receipt</p>
+    <span class="receipt-success">
+      ✓ Statement Retrieved Successfully
+    </span>
+  </div>
+
+  <div class="receipt-account">
+    <div>
+      <span>Account Number</span>
+      <strong>{{ customer?.account_number }}</strong>
+    </div>
+
+    <div>
+      <span>Customer Name</span>
+      <strong>{{ customer?.full_name }}</strong>
+    </div>
+
+    <div>
+      <span>Statement Date</span>
+      <strong>{{ today | date:'dd MMM yyyy' }}</strong>
+    </div>
+  </div>
+
+  <div class="receipt-transactions">
+    <h3>Recent Transactions</h3>
+
+    <p *ngIf="transactions.length === 0" class="empty-receipt">
+      No transactions found.
+    </p>
+
+    <div
+      *ngFor="let transaction of transactions"
+      class="receipt-transaction">
+
+      <div class="receipt-transaction-info">
+        <strong>{{ transaction.transaction_type }}</strong>
+
+        <small>
+          {{ transaction.transaction_date
+            ? (transaction.transaction_date | date:'dd MMM yyyy, h:mm a')
+            : 'Date unavailable' }}
+        </small>
+
+        <small>
+          {{ transaction.description || 'ATM transaction' }}
+        </small>
+      </div>
+
+      <strong class="receipt-amount">
+        ₹{{ transaction.amount | number:'1.2-2' }}
+      </strong>
+    </div>
+  </div>
+
+  <div class="receipt-balance">
+    <span>Available Account Balance</span>
+    <strong>₹{{ balance | number:'1.2-2' }}</strong>
+  </div>
+
+  <div class="receipt-actions">
+    <button
+      type="button"
+      class="action-button"
+      (click)="printStatement()">
+      Print Receipt
+    </button>
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="backToMenu()">
+      ← Back to Main Menu
+    </button>
+  </div>
+
+</section>
+<!-- SHARED BACK TO MAIN MENU BUTTON -->
+<div
+  class="shared-back-container"
+  *ngIf="selectedOption && selectedOption !== ''">
+
+  <button
+    type="button"
+    class="back-button"
+    (click)="backToMenu()">
+    ← Back to Main Menu
+  </button>
+
+</div>
+
+      <!-- DISPLAY FOOTER -->
+<footer class="screen-footer">
+  <span>ATM BOOTH</span>
+  <span>Secure Banking Experience</span>
+</footer>
+</main>
+
+<!-- ATM LOWER PANEL -->
+<footer class="machine-footer">
+  <span class="machine-indicator"></span>
+  <span>PLEASE KEEP YOUR PIN CONFIDENTIAL</span>
+</footer>
+</div>
+</div>
